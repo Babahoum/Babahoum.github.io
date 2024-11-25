@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roue des Cadeaux</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      background-color: #f7f7f7;
+    }
+    h1 {
+      color: #333;
+      margin-top: 50px;
+    }
+    .message {
+      font-size: 18px;
+      margin: 20px auto;
+      color: #555;
+      max-width: 500px;
+      line-height: 1.5;
+    }
+    .wheel {
+      margin: 20px auto;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 5px solid #ccc;
+      background: conic-gradient(#ffcc00 0% 50%, #00ccff 50% 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .wheel::before {
+      content: "Joyeux Anniversaire!";
+      position: absolute;
+      color: white;
+      font-weight: bold;
+      font-size: 24px;
+      transform: rotate(-45deg);
+      white-space: nowrap;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+    .spin-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .spin-btn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tourne la Roue pour découvrir ton cadeau !</h1>
+  <p class="message">Cette année, deux cadeaux s'offrent à toi. Laisse la chance décider de ton destin... 🎁</p>
+  <div class="wheel" id="wheel">
+    <!-- La roue a déjà son texte grâce à ::before -->
+  </div>
+  <button class="spin-btn" onclick="spinWheel()">Tourner</button>
+
+  <script>
+    const cadeaux = {
+      A: "Place au concert Anouar Brahem quartet à Lyon Avril 2025 🎻",
+      B: "Un bon cadeau 80€ de chez Maisons du monde 🪑",
+    };
+
+    let dejaJoue = false;
+
+    function spinWheel() {
+      if (dejaJoue) {
+        alert("Oups ! Pas de triche ! Tu ne peux jouer qu'une seule fois ! 😜");
+        return;
+      }
+
+      const options = ["A", "B"];
+      const choix = options[Math.floor(Math.random() * options.length)];
+      
+      const wheel = document.getElementById("wheel");
+      wheel.style.transition = "transform 2s ease-out";
+      wheel.style.transform = `rotate(${Math.random() * 3600}deg)`;
+
+      setTimeout(() => {
+        alert(`Félicitations ! Tu gagnes : ${cadeaux[choix]}`);
+        dejaJoue = true;
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
